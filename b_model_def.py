@@ -1,51 +1,54 @@
-#### MODEL DEFINITION + LOADING WEIGHTS
+# Transfer learning: https://gist.github.com/fchollet/f35fbc80e066a49d65f1688a7e99f069
+# Transfer learning (how it works): https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
-template = "vgg16"
+from keras.models import Model
+from keras.layers import Dense, GlobalAveragePooling2D
+
+template = "inceptionv3"
+metrics_to_graph = ["accuracy", "fbeta_score", "fmeasure"]
 
 if template == "inceptionv3":
 
-    ##### INCEPTION v3
-
     from keras.applications.inception_v3 import InceptionV3
-    from keras.models import Model
-    from keras.layers import Dense, GlobalAveragePooling2D
 
     # create the base pre-trained model
     base_model = InceptionV3(weights='imagenet', include_top=False)
-
-
-    # add a global spatial average pooling layer
-    x = base_model.output
-    x = GlobalAveragePooling2D()(x)
-    # let's add a fully-connected layer
-    x = Dense(1024, activation='relu')(x)
-    # and a logistic layer -- let's say we have 2 classes
-    predictions = Dense(2, activation='softmax')(x)
-
-    # this is the model we will train
-    model = Model(input=base_model.input, output=predictions)
-
-    # first: train only the top layers (which were randomly initialized)
-    # i.e. freeze all convolutional InceptionV3 layers
-    for layer in base_model.layers:
-        layer.trainable = False
-
-    # compile the model (should be done *after* setting layers to non-trainable)
-    model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
+    print('Base Inception v3 model loaded.')
 
 elif template == "vgg16":
 
-    ###### VGG 16
-
-
     from keras.applications import vgg16
     # build the VGG16 network with ImageNet weights
-    model = vgg16.VGG16(weights='imagenet', include_top=False)
-    print('Model loaded.')
+    base_model = vgg16.VGG16(weights='imagenet', include_top=False)
+    print('Base VGG16 model loaded.')
+    base_model.summary()
 
-    model.summary()
+elif template == "vgg19":
 
+    from keras.applications import vgg19
+    base_model = vgg19.VGG19(weights='imagenet', include_top=False)
+    print('Base VGG19 model loaded.')
+    base_model.summary()
 
+# add a global spatial average pooling layer
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+# let's add a fully-connected layer
+x = Dense(1024, activation='relu')(x)
+# and a logistic layer -- let's say we have 2 classes
+predictions = Dense(2, activation='softmax')(x)
+
+# this is the model we will train
+model = Model(input=base_model.input, output=predictions)
+
+# first: train only the top layers (which were randomly initialized)
+# i.e. freeze all convolutional InceptionV3 layers
+for layer in base_model.layers:
+    layer.trainable = False
+
+# compile the model (should be done *after* setting layers to non-trainable)
+model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
+              metrics=metrics_to_graph)
 
 #### LOAD WEIGHTS SELECTIVELY
 

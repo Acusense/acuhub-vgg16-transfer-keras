@@ -1,3 +1,9 @@
+# (working) Filter viz: https://github.com/fchollet/keras/blob/master/examples/conv_filter_visualization.py
+# How does it work: https://hackernoon.com/visualizing-parts-of-convolutional-neural-networks-using-keras-and-cats-5cc01b214e59#.asjppsubd
+# How it works w/ keras: https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html
+# (deprecated) class activation Viz: https://raghakot.github.io/keras-vis/
+# (deprecated)
+
 from __future__ import print_function
 from scipy.misc import imsave
 import numpy as np

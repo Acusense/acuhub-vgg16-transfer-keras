@@ -1,3 +1,5 @@
+# Training Visualization: https://github.com/fchollet/hualos
+
 from a_data import nb_train_samples, nb_validation_samples
 from a_data import train_generator, validation_generator
 
