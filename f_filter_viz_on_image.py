@@ -25,6 +25,7 @@ from scipy.misc import imsave
 from scipy.optimize import fmin_l_bfgs_b
 import time
 
+
 from keras.applications import vgg16
 from keras import backend as K
 from keras.layers import Input

@@ -2,10 +2,9 @@
 
 # Original code for ref (non-working) : https://github.com/fchollet/hualos
 
-from a_data import nb_train_samples, nb_validation_samples
-from a_data import train_generator, validation_generator
-
 from b_model_def import template, model
+from data.a_data import nb_train_samples, nb_validation_samples
+from data.a_data import train_generator, validation_generator
 
 nb_epoch = 50
 
