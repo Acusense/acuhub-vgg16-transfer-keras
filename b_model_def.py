@@ -4,7 +4,7 @@
 from keras.models import Model
 from keras.layers import Dense, GlobalAveragePooling2D
 
-template = "inceptionv3"
+template = raw_input('Base Model Name (choose from inceptionv3, vgg16, vgg19): ')
 metrics_to_graph = ["accuracy", "fbeta_score", "fmeasure"]
 
 if template == "inceptionv3":

@@ -1,4 +1,6 @@
-# Training Visualization: https://github.com/fchollet/hualos
+# Training Visualization Acusense (working): https://github.com/acusense/acuhub-viz
+
+# Original code for ref (non-working) : https://github.com/fchollet/hualos
 
 from a_data import nb_train_samples, nb_validation_samples
 from a_data import train_generator, validation_generator
