@@ -1,11 +1,13 @@
 # Transfer learning: https://gist.github.com/fchollet/f35fbc80e066a49d65f1688a7e99f069
 # Transfer learning (how it works): https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
-
+import json
 from keras.models import Model
 from keras.layers import Dense, GlobalAveragePooling2D
+from data import nb_classes
+from data import config_path
 
-template = raw_input('Base Model Name (choose from inceptionv3, vgg16, vgg19): ')
-metrics_to_graph = ["accuracy", "fbeta_score", "fmeasure"]
+model_config = json.load(open(config_path))['model']
+template = model_config['template']
 
 if template == "inceptionv3":
 
@@ -35,8 +37,8 @@ x = base_model.output
 x = GlobalAveragePooling2D()(x)
 # let's add a fully-connected layer
 x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have 2 classes
-predictions = Dense(2, activation='softmax')(x)
+# and a logistic layer -- let's say we have n classes as specified by the data
+predictions = Dense(nb_classes, activation='softmax')(x)
 
 # this is the model we will train
 model = Model(input=base_model.input, output=predictions)
@@ -46,9 +48,25 @@ model = Model(input=base_model.input, output=predictions)
 for layer in base_model.layers:
     layer.trainable = False
 
-# compile the model (should be done *after* setting layers to non-trainable)
-model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
-              metrics=metrics_to_graph)
+
+# XML rendering (lame): https://github.com/mdaines/viz.js/
+# D3 rendering: https://github.com/mstefaniuk/graph-viz-d3-js
+
+######## MODEL VISUALIZATION ################
+print "creating model vis png"
+from keras.utils.visualize_util import plot
+plot(model, to_file='model.png', show_shapes=True, show_layer_names=True)
+
+print "creating model vis raw graphviz to txt"
+from keras.utils.visualize_util import model_to_dot
+
+graphviz_dot = model_to_dot(model)
+raw_dot_language = graphviz_dot.to_string()
+with open('model_dot.txt','wb') as f:
+    f.write(raw_dot_language)
+
+# from IPython.display import SVG
+# SVG(graphviz_dot.create(prog='dot', format='svg'))
 
 #### LOAD WEIGHTS SELECTIVELY
 
