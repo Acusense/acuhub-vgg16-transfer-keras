@@ -6,9 +6,6 @@ from keras.layers import Dense, GlobalAveragePooling2D
 from data import nb_classes
 from data import config_path
 
-model_config = json.load(open(config_path))['model']
-template = model_config['template']
-
 from keras.applications import vgg16
 # build the VGG16 network with ImageNet weights
 base_model = vgg16.VGG16(weights='imagenet', include_top=False)

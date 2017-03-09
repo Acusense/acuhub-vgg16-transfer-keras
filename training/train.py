@@ -2,7 +2,7 @@
 
 # Original code for ref (non-working) : https://github.com/fchollet/hualos
 import os, json
-from model import template, model
+from model import model
 from data import nb_train_samples, nb_val_samples
 from data import train_generator, val_generator
 from data import config_path
@@ -27,7 +27,7 @@ def train():
                                                  mode='auto', period=1)
 
     # train the model on the new data for a few epochs
-    print "training model with full inception model"
+    print "training model with full vgg model"
     model.fit_generator(
         train_generator,
         samples_per_epoch=nb_train_samples,

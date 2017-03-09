@@ -1,4 +1,5 @@
 # Deep Dream in Keras : https://github.com/fchollet/keras/blob/master/examples/deep_dream.py
+from __future__ import print_function
 
 # NOT FULLY INTEGRATED - not high priority
 
@@ -18,7 +19,6 @@ It is preferable to run this script on GPU, for speed.
 If running on CPU, prefer the TensorFlow backend (much faster).
 Example results: http://i.imgur.com/FX6ROg9.jpg
 '''
-from __future__ import print_function
 from keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 from scipy.misc import imsave
