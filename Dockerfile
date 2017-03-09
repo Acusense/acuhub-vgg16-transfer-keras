@@ -1,4 +1,4 @@
-FROM kaixhin/cuda-keras
+FROM kaixhin/cuda-keras:8.0
 VOLUME ["/training_files", "/acuhub"]
 
 ARG GIT_USERNAME=devacusense
