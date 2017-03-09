@@ -9,6 +9,8 @@ from data import config_path
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')
+if not os.path.exists(snapshots_dir):
+    os.makedirs(snapshots_dir)
 
 def train():
 

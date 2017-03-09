@@ -1,10 +1,14 @@
 # Transfer learning: https://gist.github.com/fchollet/f35fbc80e066a49d65f1688a7e99f069
 # Transfer learning (how it works): https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
-import json
+import os, json
 from keras.models import Model
 from keras.layers import Dense, GlobalAveragePooling2D
 from data import nb_classes
 from data import config_path
+
+model_vis_dir = os.path.join(os.environ['BASE_PATH'], 'model_vis/')
+if not os.path.exists(model_vis_dir):
+    os.makedirs(model_vis_dir)
 
 from keras.applications import vgg16
 # build the VGG16 network with ImageNet weights
@@ -35,14 +39,14 @@ for layer in base_model.layers:
 ######## MODEL VISUALIZATION ################
 print "creating model vis png"
 from keras.utils.visualize_util import plot
-plot(model, to_file='model.png', show_shapes=True, show_layer_names=True)
+plot(model, to_file=model_vis_dir + 'model.png', show_shapes=True, show_layer_names=True)
 
 print "creating model vis raw graphviz to txt"
 from keras.utils.visualize_util import model_to_dot
 
 graphviz_dot = model_to_dot(model)
 raw_dot_language = graphviz_dot.to_string()
-with open('model_dot.txt','wb') as f:
+with open(model_vis_dir + 'model_dot.txt','wb') as f:
     f.write(raw_dot_language)
 
 # from IPython.display import SVG

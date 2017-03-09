@@ -1,4 +1,4 @@
-FROM kaixhin/cuda-keras:8.0
+FROM kaixhin/cuda-keras
 VOLUME ["/training_files", "/acuhub"]
 
 ARG GIT_USERNAME=devacusense
@@ -12,8 +12,10 @@ RUN git config --global user.email dev@acusense.ai
 
 #RUN git clone https://github.com/Acusense/acuhub.git
 
-WORKDIR /acuhub
-RUN pip install -r requirements.txt
+#WORKDIR /acuhub
+#RUN pip install -r requirements.txt
+RUN sudo easy_install --upgrade numpy
+RUN sudo easy_install --upgrade scipy
 
 # set keras backend to theano
 ENV KERAS_BACKEND=theano

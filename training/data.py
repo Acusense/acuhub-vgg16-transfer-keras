@@ -1,15 +1,15 @@
 import os, math
 import numpy as np
 import json
-import keras as K
+from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator, Iterator, load_img, img_to_array, array_to_img
 
 class ImageDataGeneratorAcusense(ImageDataGenerator):
-    def __init__(self):
-        super(ImageDataGeneratorAcusense, self).__init__()
+    def __init__(self, **kwargs):
+        ImageDataGenerator.__init__(self, **kwargs)
 
 
-    def flow_from_tuples(self, tuples,
+    def flow_from_tuples(self, tuples, tag_objects,
                         target_size=(256, 256), color_mode='rgb',
                         classes=None, class_mode='categorical',
                         batch_size=32, shuffle=True, seed=None,
@@ -18,7 +18,7 @@ class ImageDataGeneratorAcusense(ImageDataGenerator):
                         save_format='jpeg',
                         follow_links=False):
         return TuplesIterator(
-            tuples, self,
+            tuples, tag_objects, self,
             target_size=target_size, color_mode=color_mode,
             classes=classes, class_mode=class_mode,
             dim_ordering=self.dim_ordering,
@@ -73,12 +73,12 @@ class TuplesIterator(Iterator):
         # first, count the number of samples and classes
         self.nb_sample = 0
 
-        self.class_indices = {tag_object.name:ind for ind, tag_object in enumerate(tag_objects)}
+        self.class_indices = {tag_object['name']:ind for ind, tag_object in enumerate(tag_objects)}
 
         self.nb_class = len(self.class_indices.keys())
 
-        for ind, tuple in enumerate(tuples):
-            fname = tuple[0]
+        for ind, tup in enumerate(tuples):
+            fname = tup[0]
             is_valid = False
             for extension in white_list_formats:
                 if fname.lower().endswith('.' + extension):
@@ -92,18 +92,18 @@ class TuplesIterator(Iterator):
         self.filepaths = []
         self.classes = []
         i = 0
-        for ind, tuple in enumerate(tuples):
-            fname = tuple[0]
+        for ind, tup in enumerate(tuples):
+            fname = tup[0]
             is_valid = False
             for extension in white_list_formats:
                 if fname.lower().endswith('.' + extension):
                     is_valid = True
                     break
             if is_valid:
-                self.classes.append(tuple[1])
+                self.classes.append(tup[1])
                 i += 1
                 # add filename relative to directory
-                self.filepaths.append(os.path.join(data_path, tuple[0]))
+                self.filepaths.append(os.path.join(data_path, tup[0]))
         super(TuplesIterator, self).__init__(self.nb_sample, batch_size, shuffle, seed)
 
     def next(self):
@@ -115,6 +115,7 @@ class TuplesIterator(Iterator):
         grayscale = self.color_mode == 'grayscale'
         # build batch of image data
         for i, j in enumerate(index_array):
+            print self.filepaths[j]
             filepath = self.filepaths[j]
             img = load_img(filepath,
                            grayscale=grayscale,
@@ -139,7 +140,7 @@ class TuplesIterator(Iterator):
             batch_y = np.array(self.classes[index_array], dtype=K.floatx())
         elif self.class_mode == 'categorical':
             batch_y = np.zeros((len(batch_x), self.nb_class), dtype=K.floatx())
-            for i, class_list in enumerate(self.classes[index_array]):
+            for i, class_list in enumerate(np.array(self.classes)[index_array]):
                 for class_ind in class_list:
                     batch_y[i, class_ind] = 1.
         else:
@@ -153,7 +154,7 @@ config_path = os.path.join(os.environ['BASE_PATH'], 'config.json')
 data_config = json.load(open(config_path))['data']
 
 samples = data_config['file_tags_map']
-tags = data_config['tags']
+tag_objects = data_config['tags']
 nb_classes = max(max([sample[1] for sample in samples])) + 1
 nb_samples = len(samples)
 nb_train_samples = int(math.floor(nb_samples * data_config['train_val_split']))
@@ -219,14 +220,14 @@ val_samples = samples[nb_train_samples:]
 # )
 
 train_generator = train_datagen.flow_from_tuples(
-    train_samples,
+    train_samples, tag_objects,
     target_size=target_size,
     batch_size=data_config['batch_size'],
     class_mode='categorical'
 )
 
 val_generator = train_datagen.flow_from_tuples(
-    val_samples,
+    val_samples, tag_objects,
     target_size=target_size,
     batch_size=data_config['batch_size'],
     class_mode='categorical'
