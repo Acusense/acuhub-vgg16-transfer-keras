@@ -3,7 +3,7 @@
 # NOT FULLY INTEGRATED - not high priority
 
 
-from training.model import template, model
+from training.model import model
 
 '''Deep Dreaming in Keras.
 Run the script with:
@@ -94,11 +94,6 @@ def activation_map(base_image_path, result_prefix):
     dream = Input(batch_shape=(1,) + img_size)
 
     model.input_tensor = dream
-
-    # build the VGG16 network with our placeholder
-    # the model will be loaded with pre-trained ImageNet weights
-    # model = vgg16.VGG16(input_tensor=dream,
-    #                     weights='imagenet', include_top=False)
 
     # get the symbolic outputs of each "key" layer (we gave them unique names).
     layer_dict = dict([(layer.name, layer) for layer in model.layers])

@@ -8,7 +8,7 @@ from vis.utils import utils
 from vis.utils.vggnet import VGG16
 from vis.visualization import visualize_saliency
 from scipy.misc import imshow
-from training.model import template, model
+from training.model import model
 
 
 def activation_vis(layer_name):
