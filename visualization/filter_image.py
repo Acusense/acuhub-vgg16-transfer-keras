@@ -19,6 +19,7 @@ It is preferable to run this script on GPU, for speed.
 If running on CPU, prefer the TensorFlow backend (much faster).
 Example results: http://i.imgur.com/FX6ROg9.jpg
 '''
+import os
 from keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 from scipy.misc import imsave
@@ -29,12 +30,19 @@ import time
 from keras.applications import vgg16
 from keras import backend as K
 from keras.layers import Input
+from __init__ import visualizer_dict
+from ..__init__ import general_dict
 
-def activation_map(base_image_path, result_prefix):
+filter_vis_image_dict = visualizer_dict["filter_image"]
 
-    # dimensions of the generated picture.
-    img_height = 600
-    img_width = 600
+filter_vis_image_dir = os.path.join(os.environ['BASE_PATH'], 'filter_vis_image')
+if not os.path.exists(filter_vis_image_dir):
+    os.makedirs(filter_vis_image_dir)
+
+def filter_on_image(base_image_path, style="dreamy"):
+
+    img_height = filter_vis_image_dict["height"]
+    img_width = filter_vis_image_dict["width"]
 
     # some settings we found interesting
     saved_settings = {
@@ -60,7 +68,7 @@ def activation_map(base_image_path, result_prefix):
         },
     }
     # the settings we will use in this experiment
-    settings = saved_settings['dreamy']
+    settings = saved_settings[style]
 
     # util function to open, resize and format pictures into appropriate tensors
     def preprocess_image(image_path):
@@ -207,8 +215,10 @@ def activation_map(base_image_path, result_prefix):
         x = x.reshape(img_size)
         x -= random_jitter
         img = deprocess_image(np.copy(x))
-        fname = result_prefix + '_at_iteration_%d.png' % i
-        imsave(fname, img)
+        filename =  general_dict['model_description_id'] + '_' +\
+                 general_dict['model_training_id'] + '_' + \
+                 + '_at_iteration_%d.png' % i
+        imsave(os.path.join(filter_vis_image_dir, filename), img, 'png')
         end_time = time.time()
-        print('Image saved as', fname)
+        print('Image saved as', filename)
         print('Iteration %d completed in %ds' % (i, end_time - start_time))
