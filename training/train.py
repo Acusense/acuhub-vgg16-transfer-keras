@@ -17,7 +17,7 @@ def train():
     from keras import callbacks
 
     # compile the model with all of the training parameters (should be done *after* setting layers to non-trainable)
-    model.compile(optimizer='rmsprop', loss=training_config['loss_function'],
+    model.compile(optimizer=training_config['optimizer'], loss=training_config['loss_function'],
               metrics=training_config['metrics'])
 
 
@@ -29,7 +29,7 @@ def train():
                                                  mode='auto', period=1)
 
     # train the model on the new data for a few epochs
-    print "training model with full vgg model"
+    print "training model with full model"
     model.fit_generator(
         train_generator,
         samples_per_epoch=nb_train_samples,

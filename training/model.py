@@ -1,37 +1,18 @@
 # Transfer learning: https://gist.github.com/fchollet/f35fbc80e066a49d65f1688a7e99f069
 # Transfer learning (how it works): https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
-import os, json
-from keras.models import Model
-from keras.layers import Dense, GlobalAveragePooling2D
-from data import nb_classes
-from data import config_path
+
+import os
 
 model_vis_dir = os.path.join(os.environ['BASE_PATH'], 'model_vis/')
 if not os.path.exists(model_vis_dir):
     os.makedirs(model_vis_dir)
 
-from keras.applications import vgg16
-# build the VGG16 network with ImageNet weights
-base_model = vgg16.VGG16(weights='imagenet', include_top=False)
-print('Base VGG16 model loaded.')
-base_model.summary()
+################# MODEL DEFINITION #############################
+import sys
+sys.path.append(os.environ['BASE_PATH'])
+from model_def import model
 
-# add a global spatial average pooling layer
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-# let's add a fully-connected layer
-x = Dense(1024, activation='relu')(x)
-# and a logistic layer -- let's say we have n classes as specified by the data
-predictions = Dense(nb_classes, activation='softmax')(x)
-
-# this is the model we will train
-model = Model(input=base_model.input, output=predictions)
-
-# first: train only the top layers (which were randomly initialized)
-# i.e. freeze all convolutional InceptionV3 layers
-for layer in base_model.layers:
-    layer.trainable = False
-
+#######################################################################
 
 # XML rendering (lame): https://github.com/mdaines/viz.js/
 # D3 rendering: https://github.com/mstefaniuk/graph-viz-d3-js
