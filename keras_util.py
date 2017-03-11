@@ -1,5 +1,6 @@
 from keras.preprocessing.image import ImageDataGenerator, Iterator, \
     load_img, img_to_array, array_to_img
+import numpy as np
 
 class ImageDataGeneratorAcusense(ImageDataGenerator):
     def __init__(self, **kwargs):

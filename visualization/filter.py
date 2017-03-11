@@ -4,7 +4,7 @@
 # How it works w/ keras: https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html
 
 from __future__ import print_function
-from scipy.misc import imsave, imshow
+from scipy.misc import imsave
 import numpy as np
 import os, time
 from training.model import model

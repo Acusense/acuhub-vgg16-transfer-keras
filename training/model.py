@@ -1,37 +1,34 @@
 # Transfer learning: https://gist.github.com/fchollet/f35fbc80e066a49d65f1688a7e99f069
 # Transfer learning (how it works): https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
-import os
+from keras.models import Model
+from keras.layers import Dense, GlobalAveragePooling2D
+from keras.applications import vgg16
+from data import nb_classes
 
-model_vis_dir = os.path.join(os.environ['BASE_PATH'], 'model_vis/')
-if not os.path.exists(model_vis_dir):
-    os.makedirs(model_vis_dir)
+# build the VGG16 network with ImageNet weights
+base_model = vgg16.VGG16(weights='imagenet', include_top=False)
+print('Base VGG16 model loaded.')
+base_model.summary()
 
-################# MODEL DEFINITION #############################
-import sys
-sys.path.append(os.environ['BASE_PATH'])
-from model_def import model
 
-#######################################################################
+# add a global spatial average pooling layer
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+# let's add a fully-connected layer
+x = Dense(1024, activation='relu')(x)
+# and a logistic layer -- let's say we have n classes as specified by the data
+predictions = Dense(nb_classes, activation='softmax')(x)
 
-# XML rendering (lame): https://github.com/mdaines/viz.js/
-# D3 rendering: https://github.com/mstefaniuk/graph-viz-d3-js
+# this is the model we will train
+model = Model(input=base_model.input, output=predictions)
 
-######## MODEL VISUALIZATION ################
-print "creating model vis png"
-from keras.utils.visualize_util import plot
-plot(model, to_file=model_vis_dir + 'model.png', show_shapes=True, show_layer_names=True)
+# first: train only the top layers (which were randomly initialized)
+# i.e. freeze all convolutional layers
+for layer in base_model.layers:
+    layer.trainable = False
 
-print "creating model vis raw graphviz to txt"
-from keras.utils.visualize_util import model_to_dot
 
-graphviz_dot = model_to_dot(model)
-raw_dot_language = graphviz_dot.to_string()
-with open(model_vis_dir + 'model_dot.txt','wb') as f:
-    f.write(raw_dot_language)
-
-# from IPython.display import SVG
-# SVG(graphviz_dot.create(prog='dot', format='svg'))
 
 #### LOAD WEIGHTS SELECTIVELY
 
