@@ -30,8 +30,7 @@ import time
 from keras.applications import vgg16
 from keras import backend as K
 from keras.layers import Input
-from __init__ import visualizer_dict
-from ..__init__ import general_dict
+from __init__ import general_dict, visualizer_dict
 
 filter_vis_image_dict = visualizer_dict["filter_image"]
 

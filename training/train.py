@@ -5,7 +5,7 @@ import os, json
 from model import model
 from data import nb_train_samples, nb_val_samples
 from data import train_generator, val_generator
-from ..__init__ import config_path
+from __init__ import config_path
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')

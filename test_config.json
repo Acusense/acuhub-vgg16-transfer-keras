@@ -1,0 +1,72 @@
+{
+  "general": {
+    "model_definition_id": 0,
+    "model_training_id": 0
+  },
+  "data_config": {
+    "use_generator": true,
+    "train_val_split": 0.8,
+    "batch_size": 32,
+    "width": 150,
+    "height": 150,
+    "train_preprocess": {
+      "featurewise_center": true,
+      "samplewise_std_normalization": true,
+      "zca_whitening": true,
+      "rotation_range": 90,
+      "width_shift_range": 0.1,
+      "height_shift_range": 0.1,
+      "shear_range": 0.2,
+      "zoom_range": 0.2,
+      "channel_shift_range": 0.0,
+      "fill_mode": "nearest",
+      "cval": 0.0,
+      "horizontal_flip": true,
+      "vertical_flip": true,
+      "rescale": null,
+      "dim_ordering": "th"
+    },
+    "test_preprocess": {
+      "rescale": 0.00392156862
+    }
+
+  },
+  "training":{
+    "optimizer": "rmsprop",
+    "loss_function": "categorical_crossentropy",
+    "learning_rate": 0.9,
+    "regularization": 0.9922,
+    "momentum": 0.1,
+    "nb_epoch": 50,
+    "metrics": ["accuracy", "fbeta_score", "fmeasure"]
+  },
+  "visualization": {
+    "filter": {
+      "height": 128,
+      "width": 128,
+      "layer_name": "block_conv4"
+    },
+    "filter_image": {
+      "height": 600,
+      "width": 600,
+      "layer_name": "block_conv4",
+      "image_path": "/training_files/data/dog1.jpg"
+    },
+    "model": {
+      "type": "graphviz"
+    },
+    "activation_image": {
+      "height": 600,
+      "width": 600,
+      "layer_name": "predictions",
+      "image_path": "/training_files/data/dog1.jpg"
+    }
+  },
+  "ui_whitelist":{
+    "data_config.train_preprocess.rotation_range": {
+      "label":"Image Rotation",
+      "value_type": "float",
+      "description": "dfaaidfadf"
+    },...
+  }
+}

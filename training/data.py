@@ -3,8 +3,8 @@ import numpy as np
 from keras import backend as K
 from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 from keras.utils import np_utils
-from ..keras_util import ImageDataGeneratorAcusense
-from ..__init__ import config_dict
+from keras_util import ImageDataGeneratorAcusense
+from __init__ import config_dict
 
 data_path = os.path.join(os.environ['BASE_PATH'], 'data')
 

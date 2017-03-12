@@ -8,7 +8,7 @@ from vis.visualization import visualize_saliency
 from scipy.misc import imsave
 from training.model import model
 from training.data import target_size
-from ..__init__ import config_dict
+from __init__ import config_dict
 
 general_dict = config_dict["general"]
 

@@ -1,0 +1,16 @@
+{
+  "tags": [
+      {
+        "name": "cat",
+        "id": 89
+      },
+      {
+        "name": "dog",
+        "id": 115
+      }
+    ],
+    "file_tags_map": [
+      ["cat1.jpg",[0]],
+      ["dog1.jpg", [1]]
+    ]
+}

@@ -9,8 +9,7 @@ import numpy as np
 import os, time
 from training.model import model
 from keras import backend as K
-from __init__ import visualizer_dict
-from ..__init__ import general_dict
+from __init__ import general_dict, visualizer_dict
 
 filter_vis_dict = visualizer_dict["filter"]
 
