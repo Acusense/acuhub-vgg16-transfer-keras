@@ -5,12 +5,11 @@ import os, json
 from model import model
 from data import nb_train_samples, nb_val_samples
 from data import train_generator, val_generator
-from data import config_path
+from ..__init__ import config_path
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')
-if not os.path.exists(snapshots_dir):
-    os.makedirs(snapshots_dir)
+training_filepath = os.path.join(os.environ['BASE_PATH'], 'training_file.csv')
 
 def train():
 
@@ -21,8 +20,8 @@ def train():
               metrics=training_config['metrics'])
 
 
-    # create remote monitor to track training metrics
-    remote = callbacks.RemoteMonitor(root='http://localhost:9000')
+    # create csv logger to store to CSV
+    csv_logging = callbacks.CSVLogger(training_filepath, separator=',', append=False)
     model_checkpoint = callbacks.ModelCheckpoint(snapshots_dir + 'weights.{epoch:02d}-{val_loss:.2f}.hdf5',
                                                  monitor='val_loss', verbose=0,
                                                  save_best_only=False, save_weights_only=False,
@@ -36,7 +35,7 @@ def train():
         nb_epoch=training_config['nb_epoch'],
         validation_data=val_generator,
         nb_val_samples=nb_val_samples,
-        callbacks=[remote, model_checkpoint]
+        callbacks=[csv_logging, model_checkpoint]
     )
 
     # # at this point, the top layers are well trained and we can start fine-tuning

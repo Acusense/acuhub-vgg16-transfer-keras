@@ -35,7 +35,7 @@ from ..__init__ import general_dict
 
 filter_vis_image_dict = visualizer_dict["filter_image"]
 
-filter_vis_image_dir = os.path.join(os.environ['BASE_PATH'], 'filter_vis_image')
+filter_vis_image_dir = os.path.join(os.environ['BASE_PATH'], 'visualizations', 'filter_vis_image')
 if not os.path.exists(filter_vis_image_dir):
     os.makedirs(filter_vis_image_dir)
 

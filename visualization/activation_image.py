@@ -12,7 +12,7 @@ from ..__init__ import config_dict
 
 general_dict = config_dict["general"]
 
-activation_maps_dir = os.path.join(os.environ['BASE_PATH'], 'activation_maps')
+activation_maps_dir = os.path.join(os.environ['BASE_PATH'], 'visualizations', 'activation_maps')
 if not os.path.exists(activation_maps_dir):
     os.makedirs(activation_maps_dir)
 

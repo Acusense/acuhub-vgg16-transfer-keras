@@ -1,20 +1,21 @@
 import argparse
 from training import train
-from visualization import activation, filter, filter_image
+from visualization import activation_image, filter, filter_image, model
+from __init__ import config_dict
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode")
-    parser.add_argument("--layer-name", dest="layer_name", default="block_conv4",
-                        help="name of the layer")
-    parser.add_argument("--image-path", dest="image_path", default="/training_files/data/dog1.jpg")
+    parser.add_argument("command")
     args = parser.parse_args()
-    if args.mode == "training":
+    if args.command == "train":
         train.train()
-    elif args.mode == "filter_vis":
-        filter.filter_vis(args.layer_name)
-    elif args.mode == "filter_vis_image":
-        filter_image.filter_on_image(args.image_path)
-    elif args.mode == "activation_map_image":
-        # Default "predictions"
-        activation.activation_vis(args.layer_name, args.image_path)
+    elif args.command == "model":
+        model.save(config_dict["visualization"]["model"]["type"])
+    elif args.command == "filter":
+        filter.filter_vis(config_dict["visualization"]["filter"]["layer_name"],
+                          config_dict["visualization"]["filter"]["image_path"])
+    elif args.command == "filter_image":
+        filter_image.filter_on_image(config_dict["visualization"]["filter_image"]["image_path"])
+    elif args.command == "activation_image":
+        activation_image.activation_vis(config_dict["visualization"]["activation_image"]["layer_name"],
+                                        config_dict["visualization"]["activation_image"]["image_path"])
