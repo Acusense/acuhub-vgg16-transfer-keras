@@ -1,4 +1,4 @@
-import os, math
+import os, json, math
 import numpy as np
 from keras import backend as K
 from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
@@ -7,11 +7,13 @@ from keras_util import ImageDataGeneratorAcusense
 from __init__ import config_dict
 
 data_path = os.path.join(os.environ['BASE_PATH'], 'data')
+data_file_tags_path = os.path.join(os.environ['BASE_PATH'], 'data.json')
 
-data_config = config_dict['data']
+data_config = config_dict['data_config']
+data_file_tags = json.load(open(data_file_tags_path))
 
-samples = data_config['file_tags_map']
-tag_objects = data_config['tags']
+samples = data_file_tags['file_tags_map']
+tag_objects = data_file_tags['tags']
 nb_classes = max(max([sample[1] for sample in samples])) + 1
 nb_samples = len(samples)
 nb_train_samples = int(math.floor(nb_samples * data_config['train_val_split']))
