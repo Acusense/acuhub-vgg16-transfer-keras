@@ -1,6 +1,10 @@
+import os
 from keras.preprocessing.image import ImageDataGenerator, Iterator, \
     load_img, img_to_array, array_to_img
+from keras import backend as K
 import numpy as np
+from __init__ import data_path
+
 
 class ImageDataGeneratorAcusense(ImageDataGenerator):
     def __init__(self, **kwargs):
@@ -113,7 +117,6 @@ class TuplesIterator(Iterator):
         grayscale = self.color_mode == 'grayscale'
         # build batch of image data
         for i, j in enumerate(index_array):
-            print self.filepaths[j]
             filepath = self.filepaths[j]
             img = load_img(filepath,
                            grayscale=grayscale,
