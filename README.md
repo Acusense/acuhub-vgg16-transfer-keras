@@ -1,4 +1,4 @@
-## Example: Base VGG16 model w/ transfer learning
+## Acuhub Example: Base VGG16 model w/ transfer learning in Keras
 
 * Install and use [nvidia-docker](https://github.com/NVIDIA/nvidia-docker)
 
@@ -23,6 +23,15 @@ training_files/
 ```
 
 For a better understanding of the structure and format of the files check out the [Sensei platform](https://sensei.com).
+
+##### Dockerfile
+
+Your Dockerfile will determine how Sensei sets up your environment. In order to ensure that your files are available, be sure to include the following at the top of your file:
+
+```bash
+VOLUME ["/training_files", "/<my_repo>"]
+```
+
 
 #### File Structure
 
