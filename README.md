@@ -12,7 +12,7 @@ This entire repository will be built within a scope for your particular model tr
 built Docker at `/training_files`. You can change this setting in the Sensei Platform. 
 
 The following files and folders will be present once your model training has been defined in the Sensei platform: 
-``
+```bash
 training_files/
  |_ data.json
  |_ config.json
@@ -20,13 +20,13 @@ training_files/
  |_ snapshots/
  |_ visualizations/
  |_ training.csv
-``
+```
 
 For a better understanding of the structure and format of the files check out the [Sensei platform](https://sensei.com).
 
 #### File Structure
 
-``
+```bash
 my_repo
  |_ scripts
    |_ train.sh
@@ -35,7 +35,7 @@ my_repo
    |_ script_2.sh
    |_ ...
  |_ ...
-``
+```
 
 * **/scripts**: location where can insert any number of shell scripts to interface with your code. 
 
@@ -54,15 +54,14 @@ Console outputs can be monitored on your model training page on the [Sensei plat
 Sensei reads snapshot / weights files from the `/training_files/snapshots` directory. They can be saved in any format necessary 
 
 * Statistics and Graphs: 
-In our repository training parameters store to a file at `/training_files/training.csv` in the following format:
-``
+In our repository training parameters store to a file at `/training_files/training.csv` in the following format shown below. 
+In this demo repository, the x-axis variable is "epochs" and a new row is written for each epoch which includes the following y-axis variables:
+training accuracy, validation accuracy, training loss, validation loss.
+```bash
 (x-axis variable), (y-axis variable 1), (y-axis variable 2), ...
 x1, y1, y2, ...
 x2, y1, y2, ...
-``
-
-In this demo repository, the x-axis variable is "epochs" and a new row is written for each epoch which includes the following y-axis variables:
-training accuracy, validation accuracy, training loss, validation loss. 
+```
 
 * Visualizations:
 Visualizations are stored as images in the `/training_files/visualizations/` directory. 
