@@ -1,9 +1,10 @@
 FROM kaixhin/cuda-keras
 VOLUME ["/training_files", "/acuhub"]
 
-RUN pip install -r /acuhub/requirements.txt
-RUN sudo easy_install --upgrade numpy
-RUN sudo easy_install --upgrade scipy
+RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
+#RUN pip install -r /acuhub/requirements.txt
+#RUN sudo easy_install --upgrade numpy
+#RUN sudo easy_install --upgrade scipy
 
 # set keras backend to theano
 ENV KERAS_BACKEND=theano
