@@ -1,7 +1,3 @@
-__project__ = 'acuhub'
-__version__ = '0.0.0'
-
-VERSION = "{0} v{1}".format(__project__, __version__)
 import os, json
 
 config_path = os.path.join(os.environ['BASE_PATH'], 'config.json')

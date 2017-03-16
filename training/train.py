@@ -6,14 +6,13 @@ from model import model
 from data import nb_train_samples, nb_val_samples
 from data import train_generator, val_generator
 from __init__ import config_path
+from keras import callbacks
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')
 training_filepath = os.path.join(os.environ['BASE_PATH'], 'training_file.csv')
 
 def train():
-
-    from keras import callbacks
 
     # compile the model with all of the training parameters (should be done *after* setting layers to non-trainable)
     model.compile(optimizer=training_config['optimizer'], loss=training_config['loss_function'],

@@ -15,5 +15,8 @@ RUN sudo apt-get install graphviz -y
 RUN sudo apt-get install libopencv-dev python-opencv -y
 RUN sudo apt-get install python-skimage -y
 
+# Import the correct Keras config
+RUN sudo cp keras.json /root/.keras/keras.json
+
 # Working directory
 WORKDIR /training_files

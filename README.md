@@ -43,6 +43,7 @@ my_repo
    |_ script_1.sh
    |_ script_2.sh
    |_ ...
+ |_ Dockerfile
  |_ ...
 ```
 
