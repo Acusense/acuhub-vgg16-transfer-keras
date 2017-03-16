@@ -1,7 +1,6 @@
 FROM kaixhin/cuda-keras
 VOLUME ["/training_files", "/acuhub"]
 
-RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
 #RUN sudo easy_install --upgrade scipy
@@ -16,8 +15,11 @@ RUN sudo apt-get install graphviz -y
 RUN sudo apt-get install libopencv-dev python-opencv -y
 RUN sudo apt-get install python-skimage -y
 
+# Numpy / Scipy reqs
+RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
+
 # Import the correct Keras config
-RUN sudo cp keras.json /root/.keras/keras.json
+COPY keras.json /root/.keras/keras.json
 
 # Working directory
 WORKDIR /training_files
