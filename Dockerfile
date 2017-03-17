@@ -6,9 +6,10 @@ RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipy
 #RUN sudo easy_install --upgrade numpy
 #RUN sudo easy_install --upgrade scipy
 
-# set keras backend to theano
-ENV KERAS_BACKEND=theano
+# set keras backend to tensorflow
+ENV KERAS_BACKEND=tensorflow
 ENV BASE_PATH="/training_files"
+ENV TENSORFLOW_DEVICE="/gpu:0"
 
 # Run commands to make code work
 RUN sudo apt-get update -y
