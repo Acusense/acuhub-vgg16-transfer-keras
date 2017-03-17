@@ -11,6 +11,7 @@ import tensorflow as tf
 sess = tf.Session()
 from keras import backend as K
 K.set_session(sess)
+K.get_session().run(tf.global_variables_initializer())
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')

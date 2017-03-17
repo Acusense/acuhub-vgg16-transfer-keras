@@ -4,6 +4,7 @@ import tensorflow as tf
 sess = tf.Session()
 from keras import backend as K
 K.set_session(sess)
+K.get_session().run(tf.global_variables_initializer())
 
 model_vis_dir = os.path.join(os.environ['BASE_PATH'], 'visualizations', 'model_vis/')
 if not os.path.exists(model_vis_dir):

@@ -13,6 +13,7 @@ import tensorflow as tf
 sess = tf.Session()
 from keras import backend as K
 K.set_session(sess)
+K.get_session().run(tf.global_variables_initializer())
 
 general_dict = config_dict["general"]
 
