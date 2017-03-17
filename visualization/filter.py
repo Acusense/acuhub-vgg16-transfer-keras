@@ -11,6 +11,9 @@ from training.model import model
 from keras import backend as K
 from __init__ import general_dict, visualizer_dict
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 filter_vis_dict = visualizer_dict["filter"]
 

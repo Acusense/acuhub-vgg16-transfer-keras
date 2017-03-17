@@ -6,6 +6,9 @@ from keras.layers import Dense, GlobalAveragePooling2D
 from keras.applications import vgg16
 from data import nb_classes
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 
 with tf.device(os.environ['TENSORFLOW_DEVICE']):

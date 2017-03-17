@@ -1,10 +1,12 @@
 import os
 from keras.preprocessing.image import ImageDataGenerator, Iterator, \
     load_img, img_to_array, array_to_img
-from keras import backend as K
 import numpy as np
 from __init__ import data_path
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 with tf.device(os.environ['TENSORFLOW_DEVICE']):
     class ImageDataGeneratorAcusense(ImageDataGenerator):

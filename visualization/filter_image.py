@@ -28,10 +28,12 @@ import time
 
 
 from keras.applications import vgg16
-from keras import backend as K
 from keras.layers import Input
 from __init__ import general_dict, visualizer_dict
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 filter_vis_image_dict = visualizer_dict["filter_image"]
 

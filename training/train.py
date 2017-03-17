@@ -8,6 +8,9 @@ from data import train_generator, val_generator
 from __init__ import config_path
 from keras import callbacks
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 training_config = json.load(open(config_path))['training']
 snapshots_dir = os.path.join(os.environ['BASE_PATH'],'snapshots/')

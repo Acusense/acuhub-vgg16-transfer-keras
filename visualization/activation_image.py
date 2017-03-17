@@ -10,6 +10,9 @@ from training.model import model
 from training.data import target_size
 from __init__ import config_dict
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 general_dict = config_dict["general"]
 

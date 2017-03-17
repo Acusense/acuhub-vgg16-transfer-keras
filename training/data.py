@@ -1,11 +1,13 @@
 import os, json, math
 import numpy as np
-from keras import backend as K
 from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 from keras.utils import np_utils
 from keras_util import ImageDataGeneratorAcusense
 from __init__ import config_dict
 import tensorflow as tf
+sess = tf.Session()
+from keras import backend as K
+K.set_session(sess)
 
 data_path = os.path.join(os.environ['BASE_PATH'], 'data')
 data_file_tags_path = os.path.join(os.environ['BASE_PATH'], 'data.json')
