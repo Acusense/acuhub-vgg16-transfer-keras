@@ -8,6 +8,7 @@ VOLUME ["/training_files", "/acuhub"]
 # set keras backend to tensorflow
 ENV KERAS_BACKEND=tensorflow
 ENV BASE_PATH="/training_files"
+# can be "/cpu:0", "/gpu:0", etc
 ENV TENSORFLOW_DEVICE="/gpu:0"
 
 # Run commands to make code work
