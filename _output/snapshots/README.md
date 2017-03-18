@@ -1,1 +1,0 @@
-snapshot weights to record progress of model during training
