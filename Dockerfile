@@ -1,5 +1,5 @@
 FROM kaixhin/cuda-keras
-VOLUME ["/training_files", "/acuhub"]
+VOLUME ["/_training_data", "/_inputs", "/_outputs"]
 
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
@@ -7,7 +7,7 @@ VOLUME ["/training_files", "/acuhub"]
 
 # set keras backend to tensorflow
 ENV KERAS_BACKEND=tensorflow
-ENV BASE_PATH="/training_files"
+ENV BASE_PATH="/"
 ENV TENSORFLOW_DEVICE="/gpu:0"
 
 # Run commands to make code work
@@ -23,4 +23,4 @@ RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipy
 COPY keras.json /root/.keras/keras.json
 
 # Working directory
-WORKDIR /training_files
+WORKDIR /
