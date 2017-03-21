@@ -20,12 +20,12 @@ RUN sudo apt-get install python-skimage -y
 RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
 
 # Import the correct Keras config
-COPY keras.json /root/.keras/keras.json
+COPY src/keras.json /root/.keras/keras.json
 
 
 RUN mkdir /home/src
 
-COPY ./src /home/src
+COPY src /home/src
 
 # Working directory
 WORKDIR /home/src
