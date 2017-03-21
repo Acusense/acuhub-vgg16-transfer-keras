@@ -27,5 +27,7 @@ RUN mkdir /home/src
 
 COPY src /home/src
 
+RUN find /home/src/scripts -name "*.sh" -exec chmod +x {} +
+
 # Working directory
 WORKDIR /home/src
