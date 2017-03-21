@@ -1,5 +1,5 @@
 FROM kaixhin/cuda-keras
-VOLUME ["/_training_data", "/_inputs", "/_outputs"]
+VOLUME ["/home/_training_data", "/home/_inputs", "/home/_outputs"]
 
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
@@ -22,5 +22,10 @@ RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipy
 # Import the correct Keras config
 COPY keras.json /root/.keras/keras.json
 
+
+RUN mkdir /home/src
+
+COPY ./src /home/src
+
 # Working directory
-WORKDIR /
+WORKDIR /home/src
