@@ -31,7 +31,7 @@ RUN sudo apt-get install python-nose -y
 COPY src/keras.json /root/.keras/keras.json
 
 
-RUN mkdir /home/src
+RUN mkdir -p /home/src
 
 COPY src /home/src
 
