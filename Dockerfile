@@ -21,10 +21,10 @@ RUN sudo apt-get install python-skimage -y
 RUN sudo apt-get install python-numpy
 RUN sudo apt-get install python-scipy
 RUN sudo apt-get install python-matplotlib
-RUN sudo apt-get install ipython
-RUN sudo apt-get install ipython-notebook
-RUN sudo apt-get install python-pandas
-RUN sudo apt-get install python-sympy
+RUN sudo apt-get install ipython -y
+RUN sudo apt-get install ipython-notebook -y
+RUN sudo apt-get install python-pandas -y
+RUN sudo apt-get install python-sympy -y
 RUN sudo apt-get install python-nose -y
 
 # Import the correct Keras config
