@@ -1,5 +1,12 @@
 FROM kaixhin/cuda-keras
-VOLUME ["/home/_training_data", "/home/_inputs", "/home/_outputs"]
+
+# Volumes for training data, inputs, outputs and src code
+VOLUME [
+  "/home/_training_data",
+  "/home/_inputs",
+  "/home/_outputs",
+  "/home/src"
+]
 
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
