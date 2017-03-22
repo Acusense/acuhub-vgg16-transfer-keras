@@ -12,7 +12,7 @@ ENV BASE_PATH="/"
 ENV TENSORFLOW_DEVICE="/gpu:0"
 
 # Run commands to make code work
-RUN sudo apt-get update -y
+# RUN sudo apt-get update -y
 RUN sudo apt-get install graphviz -y
 RUN sudo apt-get install libopencv-dev python-opencv -y
 RUN sudo apt-get install python-skimage -y
