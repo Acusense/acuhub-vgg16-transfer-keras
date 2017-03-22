@@ -18,7 +18,14 @@ RUN sudo apt-get install libopencv-dev python-opencv -y
 RUN sudo apt-get install python-skimage -y
 
 # Numpy / Scipy reqs
-RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
+RUN sudo apt-get install python-numpy
+RUN sudo apt-get install python-scipy
+RUN sudo apt-get install python-matplotlib
+RUN sudo apt-get install ipython
+RUN sudo apt-get install ipython-notebook
+RUN sudo apt-get install python-pandas
+RUN sudo apt-get install python-sympy
+RUN sudo apt-get install python-nose -y
 
 # Import the correct Keras config
 COPY src/keras.json /root/.keras/keras.json
