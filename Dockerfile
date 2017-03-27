@@ -1,5 +1,6 @@
 FROM kaixhin/cuda-keras
-VOLUME ["/training_files", "/acuhub"]
+
+VOLUME ["/home/_training_data", "/home/_inputs", "/home/_outputs", "/home/src"]
 
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
@@ -7,7 +8,7 @@ VOLUME ["/training_files", "/acuhub"]
 
 # set keras backend to tensorflow
 ENV KERAS_BACKEND=tensorflow
-ENV BASE_PATH="/training_files"
+ENV BASE_PATH="/"
 # can be "/cpu:0", "/gpu:0", etc
 ENV TENSORFLOW_DEVICE="/gpu:0"
 
@@ -18,10 +19,24 @@ RUN sudo apt-get install libopencv-dev python-opencv -y
 RUN sudo apt-get install python-skimage -y
 
 # Numpy / Scipy reqs
-RUN sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose -y
+RUN sudo apt-get install python-numpy
+RUN sudo apt-get install python-scipy
+RUN sudo apt-get install python-matplotlib
+RUN sudo apt-get install ipython -y
+RUN sudo apt-get install ipython-notebook -y
+RUN sudo apt-get install python-pandas -y
+RUN sudo apt-get install python-sympy -y
+RUN sudo apt-get install python-nose -y
 
 # Import the correct Keras config
-COPY keras.json /root/.keras/keras.json
+COPY src/keras.json /root/.keras/keras.json
+
+
+RUN mkdir -p /home/src
+
+COPY src /home/src
+
+RUN find /home/src/scripts -name "*.sh" -exec chmod +x {} +
 
 # Working directory
-WORKDIR /training_files
+WORKDIR /home/src
