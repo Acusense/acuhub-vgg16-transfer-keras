@@ -10,8 +10,8 @@ from keras import backend as K
 K.set_session(sess)
 K.get_session().run(tf.global_variables_initializer())
 
-data_path = os.path.join(os.environ['BASE_PATH'], 'data')
-data_file_tags_path = os.path.join(os.environ['BASE_PATH'], 'data.json')
+data_path = os.environ['DATA_DIR']
+data_file_tags_path = os.path.join(data_path, 'data.json')
 
 data_config = config_dict['data_config']
 data_file_tags = json.load(open(data_file_tags_path))

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-KERAS_BACKEND=tensorflow python /acuhub/main.py activation_image
+KERAS_BACKEND=tensorflow python main.py activation_image

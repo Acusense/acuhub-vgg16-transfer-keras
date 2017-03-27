@@ -1,6 +1,6 @@
 FROM kaixhin/cuda-keras
 
-VOLUME ["/home/_training_data", "/home/_inputs", "/home/_outputs", "/home/src"]
+VOLUME ["/home/_data", "/home/_inputs", "/home/_outputs", "/home/src"]
 
 #RUN pip install -r /acuhub/requirements.txt
 #RUN sudo easy_install --upgrade numpy
@@ -8,9 +8,14 @@ VOLUME ["/home/_training_data", "/home/_inputs", "/home/_outputs", "/home/src"]
 
 # set keras backend to tensorflow
 ENV KERAS_BACKEND=tensorflow
-ENV BASE_PATH="/"
 # can be "/cpu:0", "/gpu:0", etc
 ENV TENSORFLOW_DEVICE="/gpu:0"
+
+# Setup environment variables
+ENV INPUT_DIR=/home/_inputs
+ENV OUTPUT_DIR=/home/_outputs
+ENV DATA_DIR=/home/_data
+ENV SRC_DIR=/home/src
 
 # Run commands to make code work
 RUN sudo apt-get update -y
@@ -38,5 +43,5 @@ COPY src /home/src
 
 RUN find /home/src/scripts -name "*.sh" -exec chmod +x {} +
 
-# Working directory
+# Working directory: this is where unix scripts will run from
 WORKDIR /home/src

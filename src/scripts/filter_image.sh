@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-KERAS_BACKEND=tensorflow python /acuhub/main.py filter_image
+KERAS_BACKEND=tensorflow python main.py filter_image
 
 
 
