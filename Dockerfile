@@ -17,6 +17,8 @@ ENV OUTPUT_DIR=/home/_outputs
 ENV DATA_DIR=/home/_data
 ENV SRC_DIR=/home/src
 
+RUN sudo apt-get install python-pip python-dev
+
 # Run commands to make code work
 RUN sudo apt-get update -y
 RUN sudo apt-get install graphviz -y
@@ -33,6 +35,11 @@ RUN sudo apt-get install python-pandas -y
 RUN sudo apt-get install python-sympy -y
 RUN sudo apt-get install python-nose -y
 
+
+
+RUN sudo pip install --upgrade
+
+RUN pip install tensorflow
 # Import the correct Keras config
 COPY src/keras.json /root/.keras/keras.json
 
