@@ -37,9 +37,9 @@ RUN sudo apt-get install python-nose -y
 
 
 
-RUN sudo pip install --upgrade
 
-RUN pip install tensorflow
+RUN sudo pip  install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.0.1-cp27-none-linux_x86_64.whl
+
 # Import the correct Keras config
 COPY src/keras.json /root/.keras/keras.json
 
